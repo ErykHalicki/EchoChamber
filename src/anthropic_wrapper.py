@@ -7,7 +7,7 @@ import anthropic
 class AnthropicWrapper:
     def __init__(self):
         """
-        Initialize the AnthropicWrapper with an API key from config.json.
+        Initialize the AnthropicWrapper with an API key from keys.json.
         """
         with open("../../keys.json", "r") as file:
             config = json.load(file)

@@ -39,7 +39,7 @@ class GeminiWrapper:
 
 # Example usage
 if __name__ == "__main__":
-    API_KEY = "AIzaSyAOqZgKUN4rL2VniJuzMDaI2MVXcHXk3iM"
+
     wrapper = GeminiWrapper()
     response = wrapper.send_request(
         contents="Explain how AI works in a few words",
