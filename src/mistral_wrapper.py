@@ -48,48 +48,35 @@ class MistralClient:
             print(f"Error initializing model: {str(e)}")
             return None
     
-    def send_chat_request(self, messages):
+    def send_chat_request(self, directions, prompt):
         """
         Send a chat completion request to the Mistral API.
-        
+    
         Args:
-            messages (list): List of message dictionaries with 'role' and 'content'
-            model (str, optional): Model to use for this request. If None, uses default model
-            
+            directions (str): System directions/instructions
+            prompt (str): User prompt
+        
         Returns:
             dict: API response or None if request fails
         """
         if not self.client:
             print("Error: Client not initialized")
             return None
-        
+    
         try:
+            messages = [
+                {"role": "system", "content": directions},
+                {"role": "user", "content": prompt}
+            ]
+        
             chat_response = self.client.chat.complete(
                 model=self.model,
                 messages=messages
             )
-            return chat_response
+            return chat_response.choices[0].message.content
         except Exception as e:
             print(f"Error sending request: {str(e)}")
-            return None
-    
-    def get_chat_response(self, prompt):
-        """
-        Get a simple chat response for a single prompt.
-        
-        Args:
-            prompt (str): The user prompt
-            model (str, optional): Model to use for this request
-            
-        Returns:
-            str: Response content or error message
-        """
-        messages = [{"role": "user", "content": prompt}]
-        response = self.send_chat_request(messages, model)
-        
-        if response and hasattr(response, 'choices') and len(response.choices) > 0:
-            return response.choices[0].message.content
-        return "Error: Unable to get response"
+        return None    
     
     def set_model(self, model):
         """
@@ -104,18 +91,7 @@ class MistralClient:
 # Example usage
 if __name__ == "__main__":
     # Create client
-    mistral_client = MistralClient()
+    mistral_client = MistralClient(config_file = "../../aikeys.json")
     
-    # Simple request
-    response = mistral_client.get_chat_response("What is the best French cheese?")
-    print(response)
-    
-    # More complex request with custom messages
-    messages = [
-        {"role": "system", "content": "You are a helpful assistant with expertise in French cuisine."},
-        {"role": "user", "content": "Tell me about the different regions of French cheese."}
-    ]
-    
-    full_response = mistral_client.send_chat_request(messages)
-    if full_response:
-        print(full_response.choices[0].message.content)
+    full_response = mistral_client.send_chat_request("You are a helpful assistant with expertise in French cuisine.","Tell me about the different regions of French cheese." )
+    print(full_response)
