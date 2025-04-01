@@ -20,6 +20,7 @@ body {
 }
 
 .message {
+    white-space: pre-wrap;
     margin: 5px 0;
     padding: 10px;
     border-radius: 5px;
@@ -34,8 +35,11 @@ body {
     background-color: #478ad1;
     align-self: flex-end;
 }
-
-#message-input {
+#message-input { 
+    width: 100%; 
+    resize: vertical;  
+    min-height: 50px; 
+    white-space: pre-wrap;
     width: calc(100% - 60px);
     padding: 10px;
     border: 1px solid #ccc;

@@ -22,3 +22,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     };
 });
 
+document.getElementById('message-input').addEventListener('keydown', function(event) { 
+    if (event.key === 'Enter' && !event.shiftKey)  
+        event.preventDefault(); // Handle sending the message } 
+    });
+
