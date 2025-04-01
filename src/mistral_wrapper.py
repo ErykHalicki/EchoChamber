@@ -49,7 +49,7 @@ class MistralClient:
             print(f"Error initializing model: {str(e)}")
             return None
     
-    def send_chat_request(self, directions, prompt):
+    def send_request(self, directions, prompt):
         """
         Send a chat completion request to the Mistral API.
     

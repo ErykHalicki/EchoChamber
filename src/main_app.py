@@ -8,8 +8,8 @@ def main():
     # Initialize the wrappers
     gemini = GeminiWrapper()
     anthropic = AnthropicWrapper()
-    mistral = MistralClient()
-    openai = OpenAIClient()
+    mistral = MistralClient(config_file = "../../keys.json")
+    openai = OpenAIClient(config_file = "../../keys.json")
     
     parser = argparse.ArgumentParser(description="Make AI models interact with each other.")
     parser.add_argument(
