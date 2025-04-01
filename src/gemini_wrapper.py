@@ -24,15 +24,17 @@ class GeminiWrapper:
             model=model, contents=contents
         )
         return response.text
-    def send_request(self, contents: str) -> str:
+    def send_request(self, contents: str, directions: str) -> str:
         """
         Send a request to the Gemini API and return the response content.
 
         :param contents: The input content for the model.
         :return: The response content from the API.
         """
+        system_message = (directions)
+        full_message = f"{system_message}\n\n{contents}"
         response = self.client.models.generate_content(
-            model="gemini-2.0-flash", contents=contents
+            model="gemini-2.0-flash", contents=full_message
         )
         return response.text
 
