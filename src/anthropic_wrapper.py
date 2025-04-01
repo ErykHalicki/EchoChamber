@@ -41,7 +41,7 @@ class AnthropicWrapper:
             "Please acknowledge their contributions in your response."
         )
         response = self.client.messages.create(
-            model="claude-3-7-sonnet-20250219",
+            model="claude-3-5-haiku-20241022",
             max_tokens=1024,
             system=directions,
             messages=[{"role": "user", "content": user_message}],
