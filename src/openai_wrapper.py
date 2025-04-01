@@ -1,3 +1,4 @@
+#pip install openai
 import json
 from openai import OpenAI
 

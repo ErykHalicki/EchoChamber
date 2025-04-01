@@ -1,3 +1,4 @@
+#pip install mistralai
 import os
 from mistralai import Mistral
 import json
