@@ -1,5 +1,6 @@
 # pip install -q -U google-genai
 from google import genai
+from google.genai import types
 import json
 
 
@@ -12,19 +13,7 @@ class GeminiWrapper:
             config = json.load(file)
         self.client = genai.Client(api_key=config["gemini_key"])
 
-    def send_request_specific(self, model: str, contents: str) -> str:
-        """
-        Send a request to the Gemini API and return the response content.
-
-        :param model: The model to use for the request.
-        :param contents: The input content for the model.
-        :return: The response content from the API.
-        """
-        response = self.client.models.generate_content(
-            model=model, contents=contents
-        )
-        return response.text
-    def send_request(self, contents: str) -> str:
+    def send_request(self, directions, contents: str) -> str:
         """
         Send a request to the Gemini API and return the response content.
 
@@ -32,8 +21,11 @@ class GeminiWrapper:
         :return: The response content from the API.
         """
         response = self.client.models.generate_content(
-            model="gemini-2.0-flash", contents=contents
-        )
+            model="gemini-2.0-flash",
+            config=types.GenerateContentConfig(
+            system_instruction=directions),
+            contents=contents
+        )        
         return response.text
 
 

@@ -24,11 +24,11 @@ def main():
     print(f"Initial message: {message}")
 
     # Gemini responds
-    gemini_response = gemini.send_request(contents=message)
+    gemini_response = gemini.send_request(contents=message, directions = "you are a cat respond in cat speak")
     print(f"Gemini: {gemini_response}")
 
     # Anthropic responds to Gemini
-    anthropic_response = anthropic.send_request(user_message=gemini_response)
+    anthropic_response = anthropic.send_request(user_message=gemini_response, directions = "you are a cat respond in cat speak")
     print(f"Anthropic: {anthropic_response}")
 
     # Mistral responds to Anthropic

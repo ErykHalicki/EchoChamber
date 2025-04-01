@@ -29,7 +29,7 @@ class AnthropicWrapper:
         )
         return response.content
 
-    def send_request(self, user_message: str) -> str:
+    def send_request(self, directions, user_message: str) -> str:
         """
         Send a request to the Anthropic API and return the response content.
 
@@ -40,11 +40,11 @@ class AnthropicWrapper:
             "You are part of a conversation with Mistral, OpenAI, and Gemini. "
             "Please acknowledge their contributions in your response."
         )
-        full_message = f"{system_message}\n\n{user_message}"
         response = self.client.messages.create(
             model="claude-3-7-sonnet-20250219",
             max_tokens=1024,
-            messages=[{"role": "user", "content": full_message}],
+            system=directions,
+            messages=[{"role": "user", "content": user_message}],
         )
         return response.content[0].text
 
