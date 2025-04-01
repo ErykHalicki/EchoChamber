@@ -30,7 +30,8 @@ class OpenAIClient:
         try:
             with open(config_file, 'r') as file:
                 keys_data = json.load(file)
-                api_key = keys_data.get('openai_api_key')
+
+                api_key = keys_data.get('openai_key')
                 
                 if not api_key:
                     raise ValueError(f"No 'openai_api_key' found in {config_file}")
@@ -64,14 +65,12 @@ class OpenAIClient:
             return None
         
         try:
-            response = self.client.chat.completions.create(
+            response = self.client.responses.create(
                 model=self.model,
-                messages=[
-                    {"role": "system", "content": directions},
-                    {"role": "user", "content": prompt}
-                ]
+                instructions=directions,
+                input=prompt
             )
-            return response.choices[0].message.content
+            return response.output_text
         except Exception as e:
             print(f"Error sending request: {str(e)}")
             return None
@@ -89,17 +88,12 @@ class OpenAIClient:
 # Example usage
 if __name__ == "__main__":
     # Create client
-    openai_client = OpenAIClient()
+    openai_client = OpenAIClient(config_file = "../../keys.json")
     
     # Using responses API
-    pirate_response = openai_client.get_response_text(
-        instructions="Talk like a pirate.",
-        input_text="Are semicolons optional in JavaScript?"
+    pirate_response = openai_client.send_chat_request(
+        directions="Talk like donkey from shrek.",
+        prompt="Are semicolons optional in JavaScript?"
     )
     print(pirate_response)
     
-    # Using chat completions API
-    chat_response = openai_client.get_chat_response(
-        prompt="Explain quantum computing in simple terms."
-    )
-    print(chat_response)

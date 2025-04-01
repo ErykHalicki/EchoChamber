@@ -31,7 +31,7 @@ class MistralClient:
         try:
             with open(config_file, 'r') as file:
                 keys_data = json.load(file)
-                api_key = keys_data.get('mistral_api_key')
+                api_key = keys_data.get('mistral_key')
                 
                 if not api_key:
                     raise ValueError(f"No 'mistral_api_key' found in {config_file}")
@@ -91,7 +91,7 @@ class MistralClient:
 # Example usage
 if __name__ == "__main__":
     # Create client
-    mistral_client = MistralClient(config_file = "../../aikeys.json")
+    mistral_client = MistralClient(config_file = "../../keys.json")
     
     full_response = mistral_client.send_chat_request("You are a helpful assistant with expertise in French cuisine.","Tell me about the different regions of French cheese." )
     print(full_response)
