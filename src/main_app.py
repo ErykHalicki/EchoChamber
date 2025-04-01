@@ -22,23 +22,30 @@ def main():
     # Start the conversation
     message = args.initial_message
     print(f"Initial message: {message}")
-
+    
+    directions = ""
+    total_message = ""
     # Gemini responds
-    gemini_response = gemini.send_request(contents=message, directions = "you are a cat respond in cat speak")
-    print(f"Gemini: {gemini_response}")
+    total_message += message
+    gemini_response = gemini.send_request(contents=total_message, directions = directions)
+    #print(f"Gemini:\n {gemini_response}")
+    total_message += f"Gemini:\n {gemini_response}"
 
     # Anthropic responds to Gemini
-    anthropic_response = anthropic.send_request(user_message=gemini_response, directions = "you are a cat respond in cat speak")
-    print(f"Anthropic: {anthropic_response}")
+    anthropic_response = anthropic.send_request(user_message=total_message, directions = directions)
+    #print(f"Anthropic:\n {anthropic_response}")
+    total_message += f"Anthropic:\n {anthropic_response}"
+    print(total_message)
 
     # Mistral responds to Anthropic
-    mistral_response = mistral.send_request(prompt=anthropic_response, directions = "you are a cat respond in cat speak")
-    print(f"Mistral: {mistral_response}")
+    mistral_response = mistral.send_request(prompt=total_message, directions = directions)
+    print(f"Mistral:\n {mistral_response}")
+    total_message += f"Mistral:\n {mistral_response}"
 
     # OpenAI responds to Mistral
-    openai_response = openai.send_request(prompt=mistral_response, directions = "you are a cat respond in cat speak")
-    print(f"OpenAI: {openai_response}")
-
+    openai_response = openai.send_request(prompt=total_message, directions = directions)
+    print(f"OpenAI:\n {openai_response}")
+    total_message += f"OpenAI:\n {openai_response}"
 
 if __name__ == "__main__":
     main()
