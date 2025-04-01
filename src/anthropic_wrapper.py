@@ -36,10 +36,15 @@ class AnthropicWrapper:
         :param user_message: The message content from the user.
         :return: The response content from the API.
         """
+        system_message = (
+            "You are part of a conversation with Mistral, OpenAI, and Gemini. "
+            "Please acknowledge their contributions in your response."
+        )
+        full_message = f"{system_message}\n\n{user_message}"
         response = self.client.messages.create(
             model="claude-3-7-sonnet-20250219",
             max_tokens=1024,
-            messages=[{"role": "user", "content": user_message}],
+            messages=[{"role": "user", "content": full_message}],
         )
         return response.content[0].text
 
