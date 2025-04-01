@@ -13,7 +13,7 @@ class GeminiWrapper:
             config = json.load(file)
         self.client = genai.Client(api_key=config["gemini_key"])
 
-    def send_request(self, directions, contents: str) -> str:
+    def send_request(self, contents: str, directions: str) -> str:
         """
         Send a request to the Gemini API and return the response content.
 
