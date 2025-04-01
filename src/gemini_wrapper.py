@@ -39,7 +39,6 @@ class GeminiWrapper:
 
 # Example usage
 if __name__ == "__main__":
-
     wrapper = GeminiWrapper()
     response = wrapper.send_request(
         contents="Explain how AI works in a few words",
