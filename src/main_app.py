@@ -32,11 +32,11 @@ def main():
     print(f"Anthropic: {anthropic_response}")
 
     # Mistral responds to Anthropic
-    mistral_response = mistral.send_request(contents=anthropic_response)
+    mistral_response = mistral.send_request(prompt=anthropic_response, directions = "you are a cat respond in cat speak")
     print(f"Mistral: {mistral_response}")
 
     # OpenAI responds to Mistral
-    openai_response = openai.send_request(prompt=mistral_response)
+    openai_response = openai.send_request(prompt=mistral_response, directions = "you are a cat respond in cat speak")
     print(f"OpenAI: {openai_response}")
 
 

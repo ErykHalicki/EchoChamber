@@ -41,7 +41,7 @@ class AnthropicWrapper:
             max_tokens=1024,
             messages=[{"role": "user", "content": user_message}],
         )
-        return response.content
+        return response.content[0].text
 
 
 # Example usage
